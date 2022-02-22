@@ -48,11 +48,11 @@ class Vehicle:
     def calcTotalDelay(self,waypoints,network):
         # the time and node at which the calculation starts
         if self.isIdle():
-            # return 0 if the passed waypoints is empty
+            # return empty dict if the passed waypoints list is empty
             if not waypoints: return {}
-            # if not waypoints: return 0.
             
-            # the first waypoint is guaranteed to be a pickup
+            # the first waypoint is guaranteed to be a pickup if
+            # vehicle is idle
             time = self.rides[abs(waypoints[0])].requestTime
         else:
             time = self.nextTime

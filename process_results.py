@@ -24,7 +24,7 @@ def processFilename(filename):
     pickup = data[3] - data[2]
     travel = data[4] - data[3] - data[1]
     attribs['meanPickupDelay'] = pickup.mean()
-    attribs['meanTrvelDelay'] = travel.mean()
+    attribs['meanTravelDelay'] = travel.mean()
     attribs['stdPickupDelay'] = pickup.sem()
     attribs['stdTravelDelay'] = travel.sem()
     return attribs
