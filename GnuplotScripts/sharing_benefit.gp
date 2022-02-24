@@ -10,7 +10,7 @@ set ylabel 'Delay'
 set xlabel 'Throughput'
 set out 'sharing_benefit.png'
 set term pngcairo
-plot 'KeepCurrentRideDelay/results.csv' \
+plot 'Selfish/results.csv' \
      us ($4/$2*rl):($3 == 1 ? ($5 + $7)/rl : 1/0) pt 9 ps 1.5 title '1 seat',\
      '' us ($4/$2*rl):($3 == 2 ? ($5 + $7)/rl : 1/0) \
      pt 5 ps 1.5 title '2 seats',\

@@ -11,7 +11,7 @@ set out 'network_effect.png'
 set term pngcairo
 
 rl = 7.33
-plot 'MinimizeTotalDelay/results.csv' \
+plot 'Altruist/results.csv' \
      us ($4/$2*rl):($3 == 3 && $2 == 20 ? ($5 + $7)/rl : 1/0) \
      pt 5 ps 1.5 title 'Density = 0.17', \
      '' us ($4/$2*rl):($3 == 3 && $2 == 50 ? ($5 + $7)/rl : 1/0) \

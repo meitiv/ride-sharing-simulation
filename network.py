@@ -11,7 +11,7 @@ class RoadNetwork:
         self.shortPath = defaultdict(lambda: defaultdict())
         self.pathDuration = defaultdict(lambda: defaultdict())
 
-    def initGrid(self,numX,numY,meanTime = 1,stddev = 0.01):
+    def initGrid(self,numX,numY,meanTime = 1,stddev = 0.001):
         # numX and numY is the number of links in the X and Y
         # directions; link traversal times are drawn at random from a
         # Normal distribution; meanTime is the mean link traversal

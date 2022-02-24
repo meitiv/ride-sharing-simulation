@@ -12,10 +12,10 @@ set xlabel 'Throughput'
 
 rl = 7.33
 nv = 20
-plot 'MinimizeTotalDelay/results.csv' \
+plot 'Altruist/results.csv' \
      us ($4/$2*rl):($3 == 3 && $2 == nv ? ($5 + $7)/rl : 1/0) \
      pt 5 ps 1.5 title 'Altruistic', \
-     'KeepCurrentRideDelay/results.csv' \
+     'Selfish/results.csv' \
      us ($4/$2*rl):($3 == 3 && $2 == nv ? ($5 + $7)/rl : 1/0) \
      pt 7 ps 1.5 title 'Selfish'
      
