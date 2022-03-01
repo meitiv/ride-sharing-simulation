@@ -115,6 +115,9 @@ class Vehicle:
                 if selfish:
                     for rideID,oldDelay in currentDelay.items():
                         if delay[rideID] > oldDelay:
+                            print('Delay of ride',rideID,
+                                  'increased for vehicle',
+                                  self.ID,trialWaypoints)
                             continue
 
                 # if the delay is shorter than bestDelay (or bestDelay
