@@ -22,4 +22,4 @@ s = system.System(
     numRides = args.num_rides
 )
 s.run()
-s.outputRideStates('rides')
+s.outputRideStats('rides')

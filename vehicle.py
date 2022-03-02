@@ -53,14 +53,10 @@ class Vehicle:
             
             # the first waypoint is guaranteed to be a pickup if
             # vehicle is idle
-            time = self.rides[abs(waypoints[0])].requestTime
+            time = self.rides[waypoints[0]].requestTime
         else:
             time = self.nextTime
         node = self.nextNode
-
-        # sanity check
-        if set(abs(w) for w in waypoints) != set(self.rides):
-            print('The self.rides and passed waypoints do not match')
 
         for rideID in waypoints:
             ride = self.rides[abs(rideID)]
@@ -78,10 +74,7 @@ class Vehicle:
                 node = ride.destination
                 ride.dropoffTime = time
 
-        # return the total delay
-        # return sum(r.totalDelay() for r in self.rides.values())
-
-        # return inividual ride delays
+        # return inividual ride total delays
         return dict((ID,r.totalDelay()) for ID,r in self.rides.items())
         
     def delayDeltaAddedRide(self,extraRide,network,selfish):
@@ -113,12 +106,11 @@ class Vehicle:
                 # reject this waypoint order if any existing ride's
                 # delay increased if selfish flag is set:
                 if selfish:
-                    for rideID,oldDelay in currentDelay.items():
-                        if delay[rideID] > oldDelay:
-                            print('Delay of ride',rideID,
-                                  'increased for vehicle',
-                                  self.ID,trialWaypoints)
-                            continue
+                    if any(
+                            delay[rideID] > oldDelay
+                            for rideID,oldDelay in currentDelay.items()
+                    ):
+                        continue
 
                 # if the delay is shorter than bestDelay (or bestDelay
                 # is None) save it

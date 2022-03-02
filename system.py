@@ -18,9 +18,6 @@ class System:
         self.network = RoadNetwork()
         self.network.initGrid(gridSize,gridSize)
 
-        # node arrival event queue
-        self.nodeArrivalEvents = SortedDict()
-
         # list of available vehicles
         self.vehicles = [Vehicle(idx,capacity = capacity)
                          for idx in range(numVehicles)]
@@ -29,16 +26,19 @@ class System:
         for v in self.vehicles:
             v.placeAtRandom(self.network)
 
-        # generate random ride requests
+        # keys are times and values are Ride() objects for ride
+        # requests and Vehicle() objects for node arrivals
         self.eventQueue = SortedDict()
+
+        # generate random ride requests
         time = 0.
-        self.rides = {}
+        self.rides = []
         for rideID in range(1,numRides + 1):
-            time += exponential(1./rideRate)
+            time += exponential(1./rideRate) # +time till next request
             ride = Ride(rideID,time)
             ride.random(self.network)
             self.eventQueue[ride.requestTime] = ride
-            self.rides[ride.rideID] = ride
+            self.rides.append(ride)
 
     def run(self):
         # process ride requests in order of request time and set the
@@ -50,15 +50,14 @@ class System:
                 print('Processing new ride request:',
                       ride.rideID,'at time:',time)
                 # compute the total delays for each vehicle
-                performance = sorted(
+                bestDelays = sorted(
                     [(idx,*vehicle.delayDeltaAddedRide(
                         ride,self.network,self.selfish))
                      for idx,vehicle in enumerate(self.vehicles)],
                     key = lambda t: t[1]
                 )
-                vehID,delay,waypoints = performance[0]
+                vehID,delay,waypoints = bestDelays[0]
                 print('Best vehicle is',vehID,delay,waypoints)
-
                 # add the ride to the vehicle
                 vehicle = self.vehicles[vehID]
                 vehicle.addRide(ride,waypoints)
@@ -84,9 +83,9 @@ class System:
                 if not vehicle.isIdle():
                     self.eventQueue[vehicle.nextTime] = vehicle
 
-    def outputRideStates(self,outfile):
+    def outputRideStats(self,outfile):
         with open(f'{outfile}_{self.suffix}','w') as f:
-            for ride in self.rides.values():
+            for ride in self.rides:
                 print(ride.rideID,ride.shortestTime,
                       ride.requestTime,ride.pickupTime,
                       ride.dropoffTime,file = f)
