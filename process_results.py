@@ -19,7 +19,7 @@ def processFilename(filename):
     data = pd.read_csv(filename,sep = '\s+',header = None)
     # discard the warm up and cool down periods equal to number of
     # vehicles times the number of seats
-    offset = int(attribs['nv'])*int(attribs['cp'])
+    offset = 100*int(attribs['nv'])*int(attribs['cp'])
     data = data.iloc[offset:-offset]
     pickup = data[3] - data[2]
     travel = data[4] - data[3] - data[1]
