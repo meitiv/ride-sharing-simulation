@@ -63,13 +63,21 @@ The file contains 5 space separated columns,
 After running a number of simulations with different parameters, one
 can use a helper script `process_results.py` which is run without
 command line parameters.  It computes the average and standard
-deviation of the ride delays for every simulation run and outputs a
+deviation of the ride delays for every simulation run in the directory
+from which it is run and outputs a
 comma delimited `results.csv` with columns
-- gs
-- nv
-- cp
-- rr
-- meanPickupDelay
-- meanTravelDelay
-- stdPickupDelay
-- stdTravelDelay
+- `gs`
+- `nv`
+- `cp`
+- `rr`
+- `meanPickupDelay`
+- `meanTravelDelay`
+- `stdPickupDelay`
+- `stdTravelDelay`
+
+The `gnuplot` scripts in the `GnuplotScripts` directory can be used to
+make the charts similar to those in the [blog
+post](https://playingwithmodels.wordpress.com/2022/03/04/altruism-benefits-everyone-at-least-in-transportation-models/).
+For these scripts to work there must exist two subdirectories
+`Altruist` and `Selfish` each containing a `results.csv` with
+appropriate simulation results.
