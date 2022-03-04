@@ -29,8 +29,8 @@ vehicle in such a way as to minimize the delay of the new ride.  The
 `--selfish` flag determines whether the delays of existing rides can
 be increased in the process of selecting the optimal pickup/dropoff
 sequence.  When this flag is added to the command line, the delays of
-existing (picked up or scheduled) rides cannot be increased by the new
-ride.
+existing (picked up or scheduled) rides cannot be increased when a new
+ride is added.
 
 The simulation is run via
 ```bash
